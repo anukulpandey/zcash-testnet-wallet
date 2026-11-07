@@ -1,6 +1,6 @@
 {
   "name": "zcash-testnet-wallet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A working Zcash testnet wallet in one command: npx zcash-testnet-wallet",
   "type": "module",
   "bin": {

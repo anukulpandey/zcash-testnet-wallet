@@ -102,7 +102,7 @@ The binaries are zcash-devtool built unmodified from a pinned commit (`0b3436b`)
 ## 🔒 Safety
 
 - Your keys never leave your machine. The seed is stored encrypted under `~/.zcash-testnet-wallet/wallet`.
-- Back up the seed: `zcash-devtool wallet -w ~/.zcash-testnet-wallet/wallet display-mnemonic --enable -i ~/.zcash-testnet-wallet/wallet/identity.txt` (the CLI prints the full zcash-devtool path under "more").
+- Back up the seed: `zcash-devtool wallet -w ~/.zcash-testnet-wallet/wallet display-mnemonic --enable -i ~/.zcash-testnet-wallet/wallet/identity.txt` (the binary lives in `zcash-testnet-wallet-<os>-<cpu>/bin/zcash-devtool` inside the npx cache, or use your own build).
 - **Testnet only.** TAZ has no value. Never reuse this seed for real funds.
 
 ## 🛠 Development

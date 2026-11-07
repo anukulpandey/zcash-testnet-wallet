@@ -149,7 +149,6 @@ async function main(argv) {
   say(`balance   npx zcash-testnet-wallet balance`);
   say(`send      npx zcash-testnet-wallet send <utest1…> 0.01 --memo "hi"`);
   say(`watch     npx zcash-testnet-wallet watch --ufvk $(npx zcash-testnet-wallet viewkey)`);
-  say(`more      ${dim(`${bin} wallet -w ${dir} --help`)}`);
   say(dim("Testnet only. Never send TAZ to a mainnet address, never reuse this seed for real funds."));
   say();
 }
