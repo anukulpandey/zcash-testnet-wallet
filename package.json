@@ -1,0 +1,31 @@
+{
+  "name": "zcash-testnet-wallet",
+  "version": "0.1.0",
+  "description": "A working Zcash testnet wallet in one command: npx zcash-testnet-wallet",
+  "type": "module",
+  "bin": {
+    "zcash-testnet-wallet": "bin/zcash-testnet-wallet.js"
+  },
+  "exports": {
+    "./watch": "./lib/watch.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "checksums.json"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "keywords": ["zcash", "zec", "taz", "testnet", "wallet", "faucet", "cli", "payments", "viewing-key"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anukulpandey/zcash-testnet-wallet.git"
+  },
+  "homepage": "https://github.com/anukulpandey/zcash-testnet-wallet#readme",
+  "author": "anukulpandey",
+  "license": "MIT"
+}
