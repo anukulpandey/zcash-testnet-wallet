@@ -97,7 +97,7 @@ async function main(argv) {
     });
   }
 
-  const bin = await devtoolPath((m) => say(dim(m)));
+  const bin = await devtoolPath();
 
   if (a.cmd === "viewkey") {
     if (!existsSync(join(dir, "data.sqlite"))) throw new Error("No wallet yet. Run: npx zcash-testnet-wallet");

@@ -11,8 +11,7 @@
   },
   "files": [
     "bin",
-    "lib",
-    "checksums.json"
+    "lib"
   ],
   "scripts": {
     "test": "node --test"
@@ -20,12 +19,26 @@
   "engines": {
     "node": ">=22.13"
   },
-  "keywords": ["zcash", "zec", "taz", "testnet", "wallet", "faucet", "cli", "payments", "viewing-key"],
+  "keywords": [
+    "zcash",
+    "zec",
+    "taz",
+    "testnet",
+    "wallet",
+    "faucet",
+    "cli",
+    "payments",
+    "viewing-key"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anukulpandey/zcash-testnet-wallet.git"
   },
   "homepage": "https://github.com/anukulpandey/zcash-testnet-wallet#readme",
   "author": "anukulpandey",
-  "license": "MIT"
+  "license": "MIT",
+  "optionalDependencies": {
+    "zcash-testnet-wallet-darwin-arm64": "0.1.0",
+    "zcash-testnet-wallet-darwin-x64": "0.1.0"
+  }
 }

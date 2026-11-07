@@ -13,7 +13,7 @@
 npx zcash-testnet-wallet
 ```
 
-No Rust, no 30-minute build. It downloads a prebuilt [zcash-devtool](https://github.com/zcash/zcash-devtool) for your machine, creates a testnet wallet, prints a `utest1` address **with a QR code**, funds it from [zcash-faucet](https://github.com/anukulpandey/zcash-faucet), and shows your balance.
+No Rust, no 30-minute build. It installs a prebuilt [zcash-devtool](https://github.com/zcash/zcash-devtool) for your machine, creates a testnet wallet, prints a `utest1` address **with a QR code**, funds it from [zcash-faucet](https://github.com/anukulpandey/zcash-faucet), and shows your balance.
 
 A real run on testnet (QR trimmed):
 
@@ -57,7 +57,7 @@ npx zcash-testnet-wallet watch --ufvk <key> --memo order-42
 
 Running it again reuses the same wallet and address. It only asks the faucet for coins when the balance is zero.
 
-**Prebuilt for:** macOS (Apple Silicon + Intel), Linux (x64 + arm64), Windows x64.
+**Prebuilt for:** macOS (Apple Silicon + Intel). Linux and Windows are next; until then, build zcash-devtool yourself (`cargo install --git https://github.com/zcash/zcash-devtool --features qr zcash-devtool`) and set `ZCASH_DEVTOOL`.
 
 ## 👀 Payment watcher
 
@@ -89,21 +89,20 @@ It keeps a view-only zcash-devtool wallet, syncs it every 30 seconds and reads t
 ```
 npx zcash-testnet-wallet
    │
-   ├─ 1. download zcash-devtool for your OS/CPU from this repo's GitHub release
-   │     (sha256 checked against checksums.json shipped inside the npm package)
+   ├─ 1. npm installs zcash-testnet-wallet-<os>-<cpu>, which holds zcash-devtool for your machine
+   │     (an optionalDependency, like esbuild does it; npm checks its integrity hash)
    ├─ 2. zcash-devtool wallet init -n test      → seed encrypted to a local age identity
    ├─ 3. zcash-devtool wallet list-addresses    → utest1 address + QR
    ├─ 4. npx zcash-faucet <address>             → 0.1 TAZ
    └─ 5. zcash-devtool wallet sync / balance    → wait for the next block, show the balance
 ```
 
-The binaries are built by [a GitHub Actions matrix](.github/workflows/release.yml) from a pinned zcash-devtool commit with `--features qr`. Nothing is modified: you can rebuild them yourself and compare hashes.
+The binaries are zcash-devtool built unmodified from a pinned commit (`0b3436b`) with `--features qr`. You can rebuild them yourself.
 
 ## 🔒 Safety
 
 - Your keys never leave your machine. The seed is stored encrypted under `~/.zcash-testnet-wallet/wallet`.
-- Back up the seed: `~/.zcash-testnet-wallet/bin/*zcash-devtool* wallet -w ~/.zcash-testnet-wallet/wallet display-mnemonic --enable -i ~/.zcash-testnet-wallet/wallet/identity.txt`
-- A download whose hash doesn't match is refused, never run.
+- Back up the seed: `zcash-devtool wallet -w ~/.zcash-testnet-wallet/wallet display-mnemonic --enable -i ~/.zcash-testnet-wallet/wallet/identity.txt` (the CLI prints the full zcash-devtool path under "more").
 - **Testnet only.** TAZ has no value. Never reuse this seed for real funds.
 
 ## 🛠 Development
@@ -112,6 +111,13 @@ The binaries are built by [a GitHub Actions matrix](.github/workflows/release.ym
 npm test          # runs the CLI against a stand-in zcash-devtool, plus the watcher logic on a real SQLite file
 ```
 
-Release: bump `version` in package.json, then `git tag v0.1.0 && git push --tags`. CI builds the 5 binaries, creates the GitHub release, writes checksums.json and publishes to npm (needs an `NPM_TOKEN` secret).
+Release (all from your own machine, same version everywhere):
+
+```bash
+sh scripts/publish-platform.sh <path/to/zcash-devtool> darwin arm64   # once per platform binary
+npm publish                                                             # then the main package
+```
+
+Binaries for other platforms: run the build-only [build-binaries](.github/workflows/build-binaries.yml) workflow, download the artifact, and publish it with the same script.
 
 MIT © anukulpandey · built on [zcash-devtool](https://github.com/zcash/zcash-devtool), [zec.rocks](https://zec.rocks) and [zcash-faucet](https://github.com/anukulpandey/zcash-faucet)
